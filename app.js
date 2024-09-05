@@ -1,7 +1,17 @@
 const express = require("express")
-const server = express()
+const { default: mongoose } = require("mongoose")
 
-server.use(express.static("public"))
+require("custom-env").env(process.env.NODE_ENV, "./config")
 
+mongoose.connect(process.env.CONNECTION_STRING,
+    {   useNewUrlParser: true,
+        useUnifiedTopology: true
+    }
+)
 
-server.listen(80)
+var app = express()
+app.use(cors())
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.json())
+
+app.listen(process.env.PORT)
