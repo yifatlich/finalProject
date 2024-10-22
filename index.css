@@ -1,0 +1,31 @@
+header{
+   background-color: #F8F5F0;
+
+}
+
+nav{
+    background-color: #75acdc;
+    height: 30px;
+}
+
+.logo{
+    color: #75acdc;
+    font-size: x-large;
+    
+    
+}
+
+#button-addon2{
+    background-color: white;
+}
+.btn-outline-secondary {
+    --bs-btn-border-color: #dee2e6;
+
+}
+#btn-account{
+    border-color: none;
+}
+
+.carousel-container img{
+    height: 500px
+}
