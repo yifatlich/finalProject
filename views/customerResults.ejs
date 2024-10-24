@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+
+    <% if (customers && customers.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Street</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>ZipCode</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% customers.forEach(customer => { %>
+                    <tr>
+                        <td><%= customer.username %></td>
+                        <td><%= customer.email %></td>
+                        <td><%= customer.phone %></td>
+                        <td><%= customer.address.street %></td>
+                        <td><%= customer.address.city %></td>
+                        <td><%= customer.address.state %></td>
+                        <td><%= customer.address.zipCode %></td>
+                        <td><%= new Date(customer.createdAt).toLocaleDateString() %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No customers found.</p> 
+    <% } %>
+    <button onclick="window.location.href='/customers/search'">New Search</button>
+</body>
+</html>
