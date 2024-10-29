@@ -1,0 +1,14 @@
+body {
+    background-color: #F8F5F0;
+    font-family: Arial, sans-serif;
+}
+h1 {
+    text-align: center;
+    color: #333; 
+    margin-bottom: 20px; 
+    font-size: 2.5em; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+#search-form {
+    text-align: center;
+}
