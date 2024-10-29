@@ -4,8 +4,11 @@ const bodyParser = require("body-parser")
 const customerRoute = require("./routes/customer")
 const cors = require("cors")
 const methodOverride = require('method-override')
+const path = require('path')
 
 var app = express()
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.set("view engine", "ejs")
 
@@ -30,7 +33,9 @@ app.get('/', (req, res) => {
 
 app.use("/customers", customerRoute)
 
-app.use(express.static("public"))
+
+// app.use(express.static("public"))
+
 
 
 app.listen(80)

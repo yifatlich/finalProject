@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Customers</title>
+    <link rel="stylesheet" href="/css/customer.css"> 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <h1>Search Customers</h1>
-    <form action="/customers/results" method="GET">
+    <form action="/customers/results" method="GET" class="border p-4 rounded shadow-sm bg-white" id="search-form">
         <label for="field">Select field:</label>
-        <select name="field" id="field" required>
+        <select class="form-select" name="field" id="field" required>
+            <option selected>Select a field</option>
             <option value="username">Username</option>
             <option value="email">Email</option>
             <option value="phone">Phone</option>
@@ -20,8 +23,8 @@
             <option value="createdAt">CreatedAt</option>
         </select>
 
-        <input type="text" name="value" placeholder="Enter search value" required>
-        <button type="submit">Search</button>
+        <input type="text" name="value" required>
+        <button type="submit" class="btn btn-info">Search</button>
     </form>
 </body>
 </html>
