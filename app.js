@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.set("view engine", "ejs")
 
-mongoose.connect('mongodb://172.20.10.3:27017/OurStore', {
+mongoose.connect('mongodb://localhost:27017/OurStore', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     // useCreateIndex: true

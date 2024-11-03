@@ -39,11 +39,12 @@ async function addToCart(productName, productPrice) {
     const existingProduct = cart.find(item => item.name === productName);
     if (existingProduct) {
         existingProduct.quantity += 1;
-        //showToast(`${productName} quantity updated in basket`);
+        showToast(`${productName} quantity updated in basket`);
     } else {
         cart.push(product);
-        // showToast(`${productName} added to basket`);
+        showToast(`${productName} added to basket`);
     }
+
     const userId = '123'; // Replace with the actual user ID logic in your application
     const productId = existingProduct ? existingProduct.productId : product.productId; // Get productId from your product data
     const quantity = existingProduct ? existingProduct.quantity : 1;  
@@ -74,8 +75,9 @@ async function addToCart(productName, productPrice) {
         animateCartIcon();
     } catch (error) {
         console.error('Error adding to cart on server:', error);
-        showToast('Error adding to cart, please try again.'); 
+        showToast('Error adding to cart, please try again.');
     }
+    
 }
 
 // Function to view cart contents
