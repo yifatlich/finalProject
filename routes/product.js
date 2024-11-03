@@ -39,7 +39,7 @@ router.get('/products/:id', async (req, res) => {
 //get product by name
 router.get('/products/name/:name', async (req, res) => {
     try {
-        const product = await Product.findByName(Name:req.params.name);
+        const product = await Product.findByName(req.params.name);
         if (!product) {
             return res.status(404).send({ message: 'Product not found' });
         }
