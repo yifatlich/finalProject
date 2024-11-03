@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title><%= product.name %> - Product Details</title>
+    <link rel="stylesheet" href="css/index.css"">
+</head>
+<body>
+    <h1><%= product.name %></h1>
+    <p>Description: <%= product.description %></p>
+    <p>Price: $<%= product.price %></p>
+
+    <div>
+        <img src="<%=product.imgUrl %>" alt="<%= product.name %> photo" style="width:300px; height:auto;">
+    </div>
+
+    <a href="/add-to-cart/<%= product._id %>">Add to Cart</a>
+</body>
+</html>
