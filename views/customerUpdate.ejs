@@ -8,23 +8,27 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Update Customer</h1>
-    <form action="/customers/update/<%= customer._id %>" method="POST" class="border p-4 rounded shadow-sm bg-white">
-        <label for="username" class="form-label">Username:</label>
-        <input type="text" class="form-control" id="username" name="username" value="<%= customer.username %>" required><br>
-        <label for="email" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="email" name="email" value="<%= customer.email %>" required><br>
-        <label for="phone" class="form-label">Phone:</label>
-        <input type="tel" class="form-control" id="phone" name="phone" value="<%= customer.phone %>"><br>
-        <label for="street" class="form-label">Street:</label>
-        <input type="text" class="form-control" id="street" name="address[street]" value="<%= customer.address.street %>" required><br>
-        <label for="city" class="form-label">City:</label>
-        <input type="text" class="form-control" id="city" name="address[city]" value="<%= customer.address.city %>" required><br>
-        <label for="state" class="form-label">State:</label>
-        <input type="text" class="form-control" id="state" name="address[state]" value="<%= customer.address.state %>" required><br>
-        <label for="zipCode" class="form-label">Zip Code:</label>
-        <input type="text" class="form-control" id="zipCode" name="address[zipCode]" value="<%= customer.address.zipCode %>" required><br>
-        <button type="submit" class="btn btn-success">Update Customer</button>
-    </form>
+    <div class="container">
+        <div class="form-container">
+            <h1>Update Customer</h1>
+            <form action="/customers/update/<%= customer._id %>" method="POST" class="border p-4 rounded shadow-sm bg-white">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" value="<%= customer.username %>" required><br>
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="<%= customer.email %>" required><br>
+                <label for="phone" class="form-label">Phone:</label>
+                <input type="tel" class="form-control" id="phone" name="phone" value="<%= customer.phone %>"><br>
+                <label for="street" class="form-label">Street:</label>
+                <input type="text" class="form-control" id="street" name="address[street]" value="<%= customer.address.street %>" required><br>
+                <label for="city" class="form-label">City:</label>
+                <input type="text" class="form-control" id="city" name="address[city]" value="<%= customer.address.city %>" required><br>
+                <label for="state" class="form-label">State:</label>
+                <input type="text" class="form-control" id="state" name="address[state]" value="<%= customer.address.state %>" required><br>
+                <label for="zipCode" class="form-label">Zip Code:</label>
+                <input type="text" class="form-control" id="zipCode" name="address[zipCode]" value="<%= customer.address.zipCode %>" required><br>
+                <button type="submit" class="btn btn-success">Update Customer</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

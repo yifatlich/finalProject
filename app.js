@@ -4,6 +4,8 @@ const bodyParser = require("body-parser")
 const customerRoute = require("./routes/customer")
 const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
+const addressRoute = require("./routes/address")
+const storeRoute = require("./routes/store")
 
 const cors = require("cors")
 const methodOverride = require('method-override')
@@ -38,7 +40,8 @@ app.get('/', (req, res) => {
 app.use("/customers", customerRoute)
 app.use("/products", productRoute);
 app.use('/cart', cartRoute);
-
+app.use(addressRoute)
+app.use(storeRoute)
 
 
 
