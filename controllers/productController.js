@@ -97,22 +97,17 @@ exports.getProductDetails = async (req, res) => {
     }
 };
 
-// Function to render the product grid page
-//exports.renderProductGrid = async (req, res) => {
-   // try {
-     //   const products = await productService.getAllProducts(); 
-       // res.render('productsGrid', { products });
-   // } catch (error) {
-     //   res.status(500).send("An error occurred while loading products.");
-    //}
-//};
 
-exports.renderProductGrid = async (req, res) => {
+
+
+
+exports.renderProductsByCategory = async (req, res) => {
+    const category = req.params.category;
     try {
-        products = await ProductService.getAllProducts();
-        res.render('productsGrid', { products });
+        const products = await ProductService.getByCategory(category);
+        res.render('productsGrid', { products, category });
     } catch (error) {
+        console.error("Error fetching products by category:", error);
         res.status(500).send("An error occurred while loading products.");
     }
 };
-

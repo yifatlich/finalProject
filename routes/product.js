@@ -3,7 +3,7 @@ const router = express.Router();
 const productController = require('../controllers/productController');
 
 // list all products
-router.get('/list', productController.getAllProducts);
+router.get('/', productController.getAllProducts);
 
 //form to add a new product
 router.get('/add', productController.showAddProductForm);
@@ -24,7 +24,10 @@ router.delete('/:id', productController.deleteProduct);
 router.get('/:id', productController.getProductDetails);
 
 // render grid page
-router.get('/', productController.renderProductGrid);
+router.get('/category/:category', productController.renderProductsByCategory);
+
+
+
 
 
 module.exports = router;
