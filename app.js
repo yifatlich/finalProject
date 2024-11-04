@@ -6,6 +6,7 @@ const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const addressRoute = require("./routes/address")
 const storeRoute = require("./routes/store")
+const supplierRoute = require("./routes/suppliers")
 
 const cors = require("cors")
 const methodOverride = require('method-override')
@@ -42,6 +43,7 @@ app.use("/products", productRoute);
 app.use('/cart', cartRoute);
 app.use(addressRoute)
 app.use(storeRoute)
+app.use(supplierRoute)
 
 
 

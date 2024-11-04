@@ -33,6 +33,10 @@ const productSchema = new mongoose.Schema({
     supplierId: {
         type: Number,
         required:true
+    },
+    totalSales: {
+        type: Number,
+        required: false
     }
 });
 
