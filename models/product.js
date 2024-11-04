@@ -29,7 +29,11 @@ const productSchema = new mongoose.Schema({
     quantity: {
         type: Number,
         required:true
-        }
+    },
+    supplierId: {
+        type: Number,
+        required:true
+    }
 });
 
 const Product = mongoose.model('product', productSchema);
