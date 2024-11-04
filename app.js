@@ -6,6 +6,7 @@ const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const addressRoute = require("./routes/address")
 const storeRoute = require("./routes/store")
+const weatherRoute = require("./routes/weather")
 
 const cors = require("cors")
 const methodOverride = require('method-override')
@@ -15,6 +16,7 @@ var app = express()
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.use(express.urlencoded({ extended: true }))
 app.set("view engine", "ejs")
 
 mongoose.connect('mongodb://localhost:27017/OurStore', {
@@ -42,6 +44,7 @@ app.use("/products", productRoute);
 app.use('/cart', cartRoute);
 app.use(addressRoute)
 app.use(storeRoute)
+app.use(weatherRoute)
 
 
 

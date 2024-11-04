@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/weather.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="form-container">
+            <h1>Get Weather</h1>
+            <form method="POST" action="/weather">
+                <div class="form-group">
+                    <label for="location">Choose a location:</label>
+                    <select class="form-control" id="location" name="location" required>
+                        <% locations.forEach(location => { %>
+                            <option value="<%= location.value %>"><%= location.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Get Weather</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
