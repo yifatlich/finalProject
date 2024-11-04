@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Supplier Dashboard</title>
+	</head>
+	<body>
+		<h2>Sales Dashboard</h2>
+		<div id="chart"></div>
+
+		<!-- Load D3.js library -->
+		<script src="https://d3js.org/d3.v7.min.js"></script>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", async function() {
+			try {
+			// Fetch the sales data from the server
+			const response = await fetch('/suppliers/product-sales-data');
+			const salesData = await response.json();
+
+			// Set up dimensions and margins for the chart
+			const margin = { top: 20, right: 30, bottom: 40, left: 90 },
+			width = 600 - margin.left - margin.right,
+			height = 400 - margin.top - margin.bottom;
+
+			// Create the SVG container for D3
+			const svg = d3.select("#chart")
+			.append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", `translate(${margin.left},${margin.top})`);
+
+			// X-axis and Y-axis scales
+			const x = d3.scaleLinear()
+			.domain([0, d3.max(salesData, d => d.totalSales)])
+			.range([0, width]);
+
+			const y = d3.scaleBand()
+			.domain(salesData.map(d => d._id))
+			.range([0, height])
+			.padding(0.1);
+
+			// Add the X and Y axes
+			svg.append("g")
+			.call(d3.axisLeft(y));
+			svg.append("g")
+			.attr("transform", `translate(0,${height})`)
+			.call(d3.axisBottom(x));
+
+			// Create the bars for the bar chart
+			svg.selectAll("rect")
+			.data(salesData)
+			.enter()
+			.append("rect")
+			.attr("x", x(0))
+			.attr("y", d => y(d._id))
+			.attr("width", d => x(d.totalSales))
+			.attr("height", y.bandwidth())
+			.attr("fill", "steelblue");
+
+			} catch (error) {
+			console.error("Error fetching or visualizing data:", error);
+			}
+			});
+		</script>
+	</body>
+</html>

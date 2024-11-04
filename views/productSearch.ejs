@@ -1,0 +1,25 @@
+<h2>Product Search</h2>
+<form method="GET" action="/suppliers/products">
+    <label for="category">Category:</label>
+    <select name="category" id="category">
+        <option value="">All</option>
+        <option value="backpacks">Backpacks</option>
+        <option value="tents">Tents</option>
+        <!-- more categories as needed -->
+    </select>
+    
+    <label for="price_min">Min Price:</label>
+    <input type="number" name="price_min" id="price_min">
+    
+    <label for="price_max">Max Price:</label>
+    <input type="number" name="price_max" id="price_max">
+
+    <button type="submit">Search</button>
+</form>
+
+<h3>Results</h3>
+<ul>
+    <% products.forEach(product => { %>
+        <li><%= product.name %> - $<%= product.price %></li>
+    <% }) %>
+</ul>
