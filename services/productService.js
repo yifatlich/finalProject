@@ -11,6 +11,17 @@ class ProductService {
         }
     }
 
+    // In your productService.js or equivalent file
+    static async getByCategory(category) {
+        try {
+            const products = await Product.find({ category: new RegExp(`^${category}$`, 'i') });
+            return products;
+        } catch (error) {
+            console.error("Error fetching products by category in service:", error);
+            throw error;
+        }
+    }
+
     // Get a product by ID
     static async getProductById(id) {
         try {
@@ -23,6 +34,10 @@ class ProductService {
             throw new Error('Error fetching product: ' + error.message);
         }
     }
+
+   
+    
+
 
     // Add a new product
     static async addProduct(productData) {
@@ -52,5 +67,7 @@ class ProductService {
         }
     }
 }
+
+
 
 module.exports = ProductService;

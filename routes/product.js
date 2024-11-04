@@ -23,6 +23,9 @@ router.delete('/:id', productController.deleteProduct);
 //product detailes page
 router.get('/:id', productController.getProductDetails);
 
+// render grid page
+router.get('/category/:category', productController.renderProductsByCategory);
+
 
 
 

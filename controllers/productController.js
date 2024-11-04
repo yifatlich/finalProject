@@ -12,6 +12,7 @@ exports.getAllProducts = async (req, res) => {
     }
 };
 
+
 // Show form to add a new product
 exports.showAddProductForm = (req, res) => {
     res.render('productAdd');
@@ -93,5 +94,20 @@ exports.getProductDetails = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send(error.message);
+    }
+};
+
+
+
+
+
+exports.renderProductsByCategory = async (req, res) => {
+    const category = req.params.category;
+    try {
+        const products = await ProductService.getByCategory(category);
+        res.render('productsGrid', { products, category });
+    } catch (error) {
+        console.error("Error fetching products by category:", error);
+        res.status(500).send("An error occurred while loading products.");
     }
 };
