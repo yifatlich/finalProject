@@ -12,6 +12,7 @@ exports.getAllProducts = async (req, res) => {
     }
 };
 
+
 // Show form to add a new product
 exports.showAddProductForm = (req, res) => {
     res.render('productAdd');
@@ -95,3 +96,23 @@ exports.getProductDetails = async (req, res) => {
         res.status(500).send(error.message);
     }
 };
+
+// Function to render the product grid page
+//exports.renderProductGrid = async (req, res) => {
+   // try {
+     //   const products = await productService.getAllProducts(); 
+       // res.render('productsGrid', { products });
+   // } catch (error) {
+     //   res.status(500).send("An error occurred while loading products.");
+    //}
+//};
+
+exports.renderProductGrid = async (req, res) => {
+    try {
+        products = await ProductService.getAllProducts();
+        res.render('productsGrid', { products });
+    } catch (error) {
+        res.status(500).send("An error occurred while loading products.");
+    }
+};
+
