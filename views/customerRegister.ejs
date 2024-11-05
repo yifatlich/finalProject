@@ -11,6 +11,15 @@
     <div class="container">
         <div class="form-container">
             <h1>Register as a Customer</h1>
+            <% if (messages && messages.length > 0) { %>
+                <div class="alert alert-danger">
+                    <ul>
+                        <% messages.forEach(function(message) { %>
+                            <li><%= message %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } %>
             <form action="/customers/register" method="POST" class="border p-4 rounded shadow-sm bg-white">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username:</label>
@@ -27,12 +36,12 @@
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone:</label>
                     <input type="text" class="form-control" id="phone" name="phone">
-                </div class="mb-3">
-                <div>
+                </div>
+                <div class="mb-3">
                     <label for="street" class="form-label">Street:</label>
                     <input type="text" class="form-control" id="street" name="address[street]" required>
-                </div class="mb-3">
-                <div>
+                </div>
+                <div class="mb-3">
                     <label for="city" class="form-label">City:</label>
                     <input type="text" class="form-control" id="city" name="address[city]" required>
                 </div>
@@ -48,5 +57,8 @@
             </form>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

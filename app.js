@@ -41,6 +41,11 @@ app.use(methodOverride("_method"))
 app.use(express.static(path.join(__dirname, 'images')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(flash())
+
+app.use((req, res, next) => {
+    res.locals.messages = req.flash('error')
+    next()
+})
 //app.use(express.static(path.join(__dirname, 'css')));
 
 // Root URL

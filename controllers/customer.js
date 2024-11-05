@@ -4,7 +4,26 @@ const bcrypt = require("bcrypt")
 exports.createCustomer = async (req, res) => {
     try {
       const { username, email, phone, address, password } = req.body
-      const hashedPassword = await bcrypt.hash(password, 10)
+      const existingCustomer = await customerService.searchCustomers({
+        $or: [
+          { username: username },
+          { email: email },
+          { phone: phone}
+        ]
+      })
+      if (existingCustomer.length > 0) {
+        const messages = []
+        if (existingCustomer.some(c => c.username === username)) {
+            messages.push('Username already exists.')
+        }
+        if (existingCustomer.some(c => c.email === email)) {
+            messages.push('Email already exists.')
+        }
+        if (existingCustomer.some(c => c.phone === phone)) {
+            messages.push('Phone already exists.')
+        }
+        return res.render('customerRegister', { messages })
+      }
       const customer = await customerService.createCustomer({
         username,
         email,
