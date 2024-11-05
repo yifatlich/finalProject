@@ -12,7 +12,7 @@ exports.createCustomer = async (req, res) => {
         address,
         password
       })  
-      res.status(201).redirect('/customers')
+      return res.redirect("/")
     } catch (error) {
         res.status(400).json({ message: error.message})
     }

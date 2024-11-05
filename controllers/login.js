@@ -3,7 +3,8 @@ const customerService = require('../services/customer')
 const bcrypt = require('bcrypt')
 
 exports.showLoginPage = (req, res) => {
-    res.render('login')
+    const messages = req.flash('error')
+    res.render('login', { messages })
 }
 
 exports.handleLogin = async (req, res) => {
@@ -12,13 +13,15 @@ exports.handleLogin = async (req, res) => {
     try {
         const customer = await customerService.searchCustomers({ username })
         if (!customer || customer.length === 0) {
-            return res.status(400).send("Invalid username")
+            req.flash('error', 'Invalid username')
+            return res.redirect('/login')
         }
 
         if (password !== customer[0].password) {
-            return res.status(400).send("Invalid password")
+            req.flash('error', 'Invalid password')
+            return res.redirect('/login')
         }
-        res.send("Login successful")
+        res.redirect('/')
     } catch (error) {
         console.error('Login error:', error)
         res.status(500).send("An error occurred during login")
