@@ -1,12 +1,14 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
+const session = require('express-session')
 const customerRoute = require("./routes/customer")
 const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const addressRoute = require("./routes/address")
 const storeRoute = require("./routes/store")
 const weatherRoute = require("./routes/weather")
+const loginRoute = require('./routes/login')
 
 const cors = require("cors")
 const methodOverride = require('method-override')
@@ -17,6 +19,7 @@ var app = express()
 
 
 app.use(express.urlencoded({ extended: true }))
+app.use(session({ secret: '123445', resave: false, saveUninitialized: true }))
 app.set("view engine", "ejs")
 app.set('views', path.join(__dirname, 'views'));
 
@@ -48,6 +51,7 @@ app.use('/cart', cartRoute);
 app.use(addressRoute)
 app.use(storeRoute)
 app.use(weatherRoute)
+app.use('/login', loginRoute)
 
 
 

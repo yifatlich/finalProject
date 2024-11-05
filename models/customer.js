@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const bcrypt = require("bcrypt")
 const Schema = mongoose.Schema
 
 const CustomerSchema = new Schema({
@@ -33,7 +34,11 @@ const CustomerSchema = new Schema({
             type: String, 
             required: true 
         }
-      },
+    },
+      password: {
+        type: String,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now
