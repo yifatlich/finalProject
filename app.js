@@ -2,6 +2,7 @@ const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const customerRoute = require("./routes/customer")
+const managerRoute = require("./routes/manager")
 const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const addressRoute = require("./routes/address")
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
 });
 
 app.use("/customers", customerRoute)
+app.use("/managers", managerRoute)
 app.use("/products", productRoute);
 app.use('/cart', cartRoute);
 app.use(addressRoute)
