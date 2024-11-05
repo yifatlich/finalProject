@@ -28,42 +28,37 @@ function showToast(message) {
 }
 
 // Function to add product to cart
-async function addToCart(productName, productPrice) {
-    const product = {
-        name: productName,
-        price: productPrice,
-        quantity: 1,
-    };
+async function addToCart(productId, productName, productPrice) {
+    console.log("Add to Cart called with:", productId, productName, productPrice); // Debug log
+    const existingProduct = cart.find(item => item.id === productId);
 
-    // Check if product already exists in cart
-    const existingProduct = cart.find(item => item.name === productName);
     if (existingProduct) {
         existingProduct.quantity += 1;
         showToast(`${productName} quantity updated in basket`);
     } else {
+        const product = {
+            id: productId,
+            name: productName,
+            price: productPrice,
+            quantity: 1,
+        };
         cart.push(product);
         showToast(`${productName} added to basket`);
     }
-
-    const userId = '123'; // Replace with the actual user ID logic in your application
-    const productId = existingProduct ? existingProduct.productId : product.productId; // Get productId from your product data
-    const quantity = existingProduct ? existingProduct.quantity : 1;  
-
+    
     try {
-        const response = await fetch('http://localhost:80/cart/add', {
+        const response = await fetch('http://127.0.0.1/cart/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                userId: userId,
-                productId: productId,
-                quantity: quantity,
-            }),
+            body: JSON.stringify(cart),
         });
+
         if (!response.ok) {
-            throw new Error('Failed to add to cart');
+            throw new Error('Failed to update the basket');
         }
+
         const updatedCart = await response.json();
         console.log('Cart updated on server:', updatedCart);
         if (existingProduct) {
@@ -74,22 +69,66 @@ async function addToCart(productName, productPrice) {
         updateCartCount();
         animateCartIcon();
     } catch (error) {
-        console.error('Error adding to cart on server:', error);
-        showToast('Error adding to cart, please try again.');
+        console.error('Error update  basket on server:', error);
+        showToast('Could not update Basket. Please try again.');
     }
     
 }
 
-// Function to view cart contents
+
+
 function viewCart() {
+    const cartDetailsElement = document.getElementById('cartDetails');
     if (cart.length === 0) {
-        alert("Your cart is empty!");
+        cartDetailsElement.innerHTML = "<p class='text-center'>Your cart is empty!</p>";
     } else {
-        let cartDetails = "Your Cart:\n";
+        let cartDetails = "<ul class='list-group'>";
         cart.forEach(item => {
-            cartDetails += `${item.name} - $${item.price} (x${item.quantity})\n`;
+            cartDetails += `<li class='list-group-item d-flex justify-content-between align-items-center'>
+                ${item.name} - $${item.price.toFixed(2)} (x${item.quantity})
+                <div>
+                    <button class='btn btn-secondary btn-sm' onclick='decreaseQuantity("${item.id}")'>-</button>
+                    <span class='mx-2'>${item.quantity}</span>
+                    <button class='btn btn-secondary btn-sm' onclick='increaseQuantity("${item.id}")'>+</button>
+                    
+                </div>
+            </li>`;
         });
-        alert(cartDetails);
+        cartDetails += "</ul>";
+        cartDetailsElement.innerHTML = cartDetails;
+    }
+
+    // Show the modal
+    const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+    cartModal.show();
+}
+
+// Function to increment the quantity of an item in the cart
+function increaseQuantity(productId) {
+    const existingProduct = cart.find(item => item.id === productId);
+    if (existingProduct) {
+        existingProduct.quantity += 1; // Increase quantity
+        viewCart(); // Refresh cart display
     }
 }
+
+// Function to decrement the quantity of an item in the cart
+function decreaseQuantity(productId) {
+    const existingProduct = cart.find(item => item.id === productId);
+    if (existingProduct) {
+        existingProduct.quantity -= 1; // Decrease quantity
+        if (existingProduct.quantity <= 0) {
+            removeFromCart(productId); // Remove item if quantity is 0
+        } else {
+            viewCart(); // Refresh cart display
+        }
+    }
+}
+
+
+
+
+
+
+
 

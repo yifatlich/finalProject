@@ -90,7 +90,7 @@ exports.deleteProduct = async (req, res) => {
 exports.getProductDetails = async (req, res) => {
     try {
         const product = await ProductService.getProductById(req.params.id);
-        res.render('productDetails', { product });
+        res.render('productsDetails', { product });
     } catch (error) {
         console.error(error);
         res.status(500).send(error.message);
