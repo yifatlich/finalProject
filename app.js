@@ -1,6 +1,8 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
+const session = require('express-session')
+const flash = require('connect-flash')
 const customerRoute = require("./routes/customer")
 const managerRoute = require("./routes/manager")
 const productRoute = require("./routes/product");
@@ -8,6 +10,7 @@ const cartRoute = require("./routes/cart");
 const addressRoute = require("./routes/address")
 const storeRoute = require("./routes/store")
 const weatherRoute = require("./routes/weather")
+const loginRoute = require('./routes/login')
 
 const cors = require("cors")
 const methodOverride = require('method-override')
@@ -18,6 +21,7 @@ var app = express()
 
 
 app.use(express.urlencoded({ extended: true }))
+app.use(session({ secret: '12345678901234567890', resave: false, saveUninitialized: true }))
 app.set("view engine", "ejs")
 app.set('views', path.join(__dirname, 'views'));
 
@@ -36,6 +40,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"))
 app.use(express.static(path.join(__dirname, 'images')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash())
 //app.use(express.static(path.join(__dirname, 'css')));
 
 // Root URL
@@ -50,6 +55,7 @@ app.use('/cart', cartRoute);
 app.use(addressRoute)
 app.use(storeRoute)
 app.use(weatherRoute)
+app.use('/login', loginRoute)
 
 
 

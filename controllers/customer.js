@@ -1,9 +1,18 @@
 const customerService = require("../services/customer")
+const bcrypt = require("bcrypt")
 
 exports.createCustomer = async (req, res) => {
     try {
-        const customer = await customerService.createCostomer(req.body)
-        res.status(201).redirect('/customers')
+      const { username, email, phone, address, password } = req.body
+      const hashedPassword = await bcrypt.hash(password, 10)
+      const customer = await customerService.createCustomer({
+        username,
+        email,
+        phone,
+        address,
+        password
+      })  
+      return res.redirect("/")
     } catch (error) {
         res.status(400).json({ message: error.message})
     }
@@ -74,3 +83,19 @@ exports.searchCustomers = async (req, res) => {
   }
 }
 
+exports.handleLogin = async (req, res) => {
+  const { username, password } = req.body
+  try {
+    const customer = await customerService.searchCustomers({ username })
+    if (!customer || customer.length === 0) {
+      return res.status(400).send("Invalid username or password");
+    }
+    const isMatch = await bcrypt.compare(password, customer[0].password)
+    if (!isMatch) {
+      return res.status(400).send("Invalid username or password")
+    }
+    res.send("Login successful")
+  } catch (error) {
+    res.status(500).send("An error occurred during login")
+  }
+}

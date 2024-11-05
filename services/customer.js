@@ -1,8 +1,25 @@
 const Customer = require("../models/customer")
+const bcrypt = require("bcrypt")
 
-const createCostomer = async (data) => {
-    const customer = new Customer(data)
-    return await customer.save()
+const createCustomer = async (data) => {
+    try {
+        const customer = new Customer({
+            username: data.username,
+            email: data.email,
+            phone: data.phone,
+            address: {
+                street: data.address.street,
+                city: data.address.city,
+                state: data.address.state,
+                zipCode: data.address.zipCode
+            },
+            password: data.password, 
+            createdAt: Date.now()
+        })
+        return await customer.save()
+    } catch (error) {
+        throw new Error("Error creating customer: " + error.message)
+    }
 }
 
 const updateCustomer = async (id, data) => {
@@ -42,7 +59,7 @@ const searchCustomers = async (query) => {
 }
 
 module.exports = {
-    createCostomer,
+    createCustomer,
     updateCustomer,
     deleteCustomer,
     listCustomers,
