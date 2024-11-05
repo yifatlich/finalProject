@@ -16,4 +16,8 @@ router.post('/register', managerController.createManager)
 
 //show manager view
 router.get('/managerView', managerController.renderManagerView);
+
+router.get('/login', managerController.renderLoginForm);
+router.post('/login', managerController.handleLogin)
+
 module.exports = router
