@@ -11,7 +11,7 @@
         <h2 class="text-center">Your Cart</h2>
 
         <% if (cart && cart.items.length > 0) { %>
-            <!-- Cart Table -->
+            
             <table class="table table-bordered table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -28,18 +28,22 @@
                         <tr>
                             <th scope="row"><%= index + 1 %></th>
                             <td><%= item.productName %></td>
-                            <td><%= item.quantity %></td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary" onclick="updateQuantity(<%= item.productId %>, -1)">-</button>
+                                <span><%= item.quantity %></span>
+                                <button class="btn btn-sm btn-secondary" onclick="updateQuantity(<%= item.productId %>, 1)">+</button>
+                            </td>
                             <td>$<%= item.price %></td>
                             <td>$<%= (item.price * item.quantity) %></td>
                             <td>
-                                
+                                <button class="btn btn-sm btn-danger" onclick="removeFromCart(<%= item.productId %>)">Remove</button>
                             </td>
                         </tr>
                     <% }) %>
                 </tbody>
             </table>
 
-            <!-- Cart Summary -->
+            
             <div class="d-flex justify-content-between">
                 <h5>Total Price:</h5>
                 <h5>$<%= cart.items.reduce((sum, item) => sum + (item.price * item.quantity), 0) %></h5>

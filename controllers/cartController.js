@@ -39,13 +39,33 @@ exports.getCartByUsername = async (req, res) => {
 }
 
 exports.removeItemFromCart = async (req, res) => {
+    const username = req.session.username;
     const {productId } = req.body;
     try {
-        const cart = await Cart.removeItemFromCart(productId);
+        const cart = await Cart.removeItemFromCart(username, productId);
+
+        if (!cart) {
+            return res.status(404).json({ success: false, message: 'Cart not found' });
+        }
         res.status(200).jason(cart);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+}
+
+exports.updateQuantity = async (req, res) => {
+    const { productId, delta } = req.body;
+    const username = req.session.username;
+    try {
+        const cart = await Cart.updateQuantity(username, productId, delta);
+        if (!cart) {
+            return res.status(404).json({ success: false, message: 'Cart not found' });
+        }
+        res.status(200).jason(cart);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+
 }
 
 exports.clearCart = async (req, res) => {
@@ -58,12 +78,4 @@ exports.clearCart = async (req, res) => {
     }
 }
 
-exports.calculateTotalPrice = async (req, res) => {
-    const username = req.session.username;
-    try {
-        const cart = await Cart.calculateTotalPrice(username);
-        res.status(200).jason(cart);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-}
+
