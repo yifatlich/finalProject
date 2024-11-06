@@ -2,7 +2,7 @@ const Cart = require('../models/cart');
 const User = require('../models/customer');
 
 const CartService = {
-    async addToCart(username,productId, price, quantity = 1) {
+    async addToCart(username, productId, productName, price, quantity = 1) {
 
         try {
             let cart = await Cart.findOne({ username });
@@ -10,19 +10,20 @@ const CartService = {
             if (!cart) {
                 cart = new Cart({
                     username: username,
-                    items: [{ productId, price, quantity }],
+                    items: [{ productId, productName,price, quantity }],
                 });
             } else {
                 const existingItem = cart.items.find(item => item.productId.toString() === productId.toString());
                 if (existingItem) {
                     existingItem.quantity += quantity;
                 } else {
-                    cart.items.push({ productId,price, quantity });
+                    cart.items.push({ productId,productName, price, quantity });
                 }
             }
 
             cart.updatedAt = Date.now();
-            await cart.save();
+            const updatedCart = await cart.save();
+            return updatedCart; 
 
             console.log('Cart updated successfully');
         } catch (error) {

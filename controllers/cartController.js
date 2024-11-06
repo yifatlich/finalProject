@@ -1,27 +1,39 @@
 const Cart = require('../services/cart.js');
 
 exports.addToCart = async (req, res) => {
-    const { productId, price, quantity } = req.body;
+    const { productId, productName, price, quantity } = req.body;
     const username = req.session.username;
-    console.log('Session Info:', req.session.username);
+    
     if (!username) {
         return res.status(401).json({ message: 'User not logged in' });
     }
     try {
-        const cart = await Cart.addToCart(username,productId, price, quantity);
-        res.status(200).json(cart);
-    
+        const cart = await Cart.addToCart(username, productId, productName,price, quantity);
+
+        if (!cart) {
+            return res.status(500).json({ message: 'Failed to add item to cart' });
+        }
+        return res.json(cart);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        rconsole.error('Error in addToCart:', error);
+        return res.status(500).json({ message: error.message });
     }
 }
 
 exports.getCartByUsername = async (req, res) => {
     const username = req.session.username;
+    if (!username) {
+        return res.redirect('/login');
+    }
     try {
         const cart = await Cart.getCartByUsername(username);
-        res.status(200).json(cart);
+
+        if (!cart) {
+            return res.render('cartView', { cart: null }); 
+        }
+        res.render('cartView', { cart });
     } catch (error) {
+        console.error('Error retrieving cart:', error);
         res.status(500).json({ message: error.message });
     }
 }
