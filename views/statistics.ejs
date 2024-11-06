@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Statistics</title>
+    <link rel="stylesheet" href="/css/statistics.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+    <div class="chart-container">
+        <h2>Customer Distribution by City</h2>
+        <div class="pie-chart-container">
+            <div id="customer-pie-chart"></div>
+            <div class="legend" id="city-legend">
+                <h3>City</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Product Distribution by Category</h2>
+        <div class="pie-chart-container">
+            <div id="product-pie-chart"></div>
+            <div class="legend" id="category-legend">
+                <h3>Category</h3>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        fetch('/api/customers/count-by-city')
+            .then(response => response.json())
+            .then(data => {
+                const width = 500, height = 300, radius = Math.min(width, height) / 2;
+                const svg = d3.select("#customer-pie-chart")
+                              .append("svg")
+                              .attr("width", width)
+                              .attr("height", height)
+                              .append("g")
+                              .attr("transform", `translate(${width / 2}, ${height / 2})`);
+                const color = d3.scaleOrdinal(d3.schemeCategory10);
+                const pie = d3.pie().value(d => d.count);
+                const arc = d3.arc().innerRadius(0).outerRadius(radius);
+                svg.selectAll("path")
+                   .data(pie(data))
+                   .enter()
+                   .append("path")
+                   .attr("d", arc)
+                   .attr("fill", d => color(d.data._id));
+                const legend = d3.select("#city-legend");
+                data.forEach((d, i) => {
+                    const legendItem = legend.append("div")
+                                             .attr("class", "legend-item");
+                    legendItem.append("div")
+                              .attr("class", "legend-color-box")
+                              .style("background-color", color(d._id));
+                    legendItem.append("span")
+                              .text(d._id + " (" + d.count + ")");
+                });
+            });
+        fetch('/api/products/count-by-category')
+            .then(response => response.json())
+            .then(data => {
+                const width = 500, height = 300, radius = Math.min(width, height) / 2;
+                const svg = d3.select("#product-pie-chart")
+                              .append("svg")
+                              .attr("width", width)
+                              .attr("height", height)
+                              .append("g")
+                              .attr("transform", `translate(${width / 2}, ${height / 2})`);
+                const color = d3.scaleOrdinal(d3.schemeCategory10);
+                const pie = d3.pie().value(d => d.count);
+                const arc = d3.arc().innerRadius(0).outerRadius(radius);
+                svg.selectAll("path")
+                   .data(pie(data))
+                   .enter()
+                   .append("path")
+                   .attr("d", arc)
+                   .attr("fill", d => color(d.data._id));
+                const legend = d3.select("#category-legend");
+                data.forEach((d, i) => {
+                    const legendItem = legend.append("div")
+                                             .attr("class", "legend-item");
+                    legendItem.append("div")
+                              .attr("class", "legend-color-box")
+                              .style("background-color", color(d._id));
+                    legendItem.append("span")
+                              .text(d._id + " (" + d.count + ")");
+                });
+            });
+    </script>
+</body>
+</html>

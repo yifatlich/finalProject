@@ -1,0 +1,99 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+.chart-container {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+h2 {
+    font-weight: bold;
+    color: #333;
+}
+
+svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.pie-chart-container {
+    display: flex; 
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    border: none; 
+    background-color: transparent; 
+    max-width: 900px;
+}
+
+#customer-pie-chart, #product-pie-chart {
+    flex: 2; 
+    padding: 0;
+    margin: 0;
+}
+
+.legend {
+    margin-left: 20px; 
+    font-size: 14px;
+    max-width: 200px;
+    overflow-y: auto; 
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.legend-color-box {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .chart-container {
+        width: 95%; 
+        padding: 15px;
+    }
+
+    .pie-chart-container {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .legend {
+        margin-left: 0; 
+        margin-top: 20px; 
+        width: 100%; 
+        max-width: none; 
+    }
+
+    #customer-pie-chart, #product-pie-chart {
+        flex: 1;
+        margin-bottom: 20px; 
+    }
+
+    h2 {
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 480px)

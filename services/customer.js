@@ -58,10 +58,21 @@ const searchCustomers = async (query) => {
     return await Customer.find(query)
 }
 
+const getCustomerCountByCity = async () => {
+    try {
+        return await Customer.aggregate([
+            { $group: { _id: "$address.city", count: { $sum: 1 } } }
+        ])
+    } catch (error) {
+        throw new Error("Error fetching customer count by city: " + error.message)
+    }
+}
+
 module.exports = {
     createCustomer,
     updateCustomer,
     deleteCustomer,
     listCustomers,
-    searchCustomers
+    searchCustomers,
+    getCustomerCountByCity
 }

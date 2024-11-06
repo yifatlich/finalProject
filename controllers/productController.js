@@ -111,3 +111,12 @@ exports.renderProductsByCategory = async (req, res) => {
         res.status(500).send("An error occurred while loading products.");
     }
 };
+
+exports.getProductCountByCategory = async (req, res) => {
+    try {
+        const data = await ProductService.getProductCountByCategory()
+        res.json(data)
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
