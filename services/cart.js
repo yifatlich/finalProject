@@ -35,18 +35,35 @@ const CartService = {
             return await Cart.findOne({ username }).populate('items.productId').exec();
     },
     
-    async removeItemFromCart(productId) {
-        const username = req.session.username;
+    async removeItemFromCart(username,productId) {
+        
         const cart = await Cart.findOne({ username });
         if (!cart) throw new Error("Cart not found");
 
         cart.items = cart.items.filter(item => item.productId.toString() !== productId.toString());
         cart.updatedAt = new Date();
-        await cart.save();
+        const updatecart= await cart.save();
 
-        return cart;
+        return updatecart;
     },
 
+    async updateQuantity(username, productId, delta) {
+        const cart = await Cart.findOne({ username });
+        if (!cart) throw new Error("Cart not found");
+
+        const item = cart.items.find(item => item.productId.toString() === productId.toString());
+
+        item.quantity += delta;
+
+        if (item.quantity < 1) {
+            item.quantity = 1;
+        }
+        cart.updatedAt = new Date();
+        const updatecart = await cart.save();
+
+        return updatecart;
+
+    },
    
     async clearCart(username) {
         const cart = await Cart.findOne({ username });
@@ -60,13 +77,7 @@ const CartService = {
     },
 
     
-    async calculateTotalPrice(username) {
-        const cart = await Cart.findOne({ username });
-        if (!cart) throw new Error("Cart not found");
-
-        const total = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-        return total;
-    }
+    
 };
 
 

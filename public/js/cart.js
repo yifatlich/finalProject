@@ -38,6 +38,48 @@ function showToast(message) {
 
 
 
+// Function to remove an item from the cart
+function removeFromCart(productId) {
+    fetch('/cart/remove', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId })
+    })
+        .then(response => response.json())
+        .then(data => {
+            location.reload();
+            if (data.success) {
+                location.reload(); // Reload the page after removing item
+            } else {
+                console.log('Failed to remove item');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// Function to update item quantity (+ or -)
+function updateQuantity(productId, delta) {
+    fetch('/cart/update', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId, delta })
+    })
+        .then(response => response.json())
+        .then(data => {
+            location.reload();
+            if (data.success) {
+                location.reload(); // Reload the page to reflect the updated cart
+            } else {
+                console.log('Failed to update quantity');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 
 
 

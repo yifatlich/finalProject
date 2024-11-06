@@ -6,7 +6,10 @@ const cartController = require('../controllers/cartController');
 router.post('/add', cartController.addToCart);
 
 // Route to remove an item from user  cart
-router.delete('/remove', cartController.removeItemFromCart);
+router.post('/remove', cartController.removeItemFromCart);
+
+//Route to update cart quantity
+router.post('/update', cartController.updateQuantity);
 
 // Route to get the cart items for a user
 router.get('/:username', cartController.getCartByUsername);
