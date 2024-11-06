@@ -113,7 +113,7 @@ exports.handleLogin = async (req, res) => {
     if (!isMatch) {
       return res.status(400).send("Invalid username or password")
       }
-      req.session.username = customer;
+      
       res.send("Login successful")
   } catch (error) {
     res.status(500).send("An error occurred during login")

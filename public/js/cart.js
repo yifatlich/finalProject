@@ -1,5 +1,5 @@
 
-async function addToCart(productId, productPrice) {
+async function addToCart(productId, productName, productPrice) {
     const quantity = 1; 
 
     try {
@@ -8,12 +8,12 @@ async function addToCart(productId, productPrice) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ productId, price: productPrice, quantity }), 
+            body: JSON.stringify({ productId,productName, price: productPrice, quantity }), 
         });
 
         if (response.ok) {
+
             const cart = await response.json();
-            console.log('Cart updated:', cart);
             showToast('Product added to cart!');
         } else {
             console.error('Failed to add to cart:', response.statusText);
