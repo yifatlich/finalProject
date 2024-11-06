@@ -6,6 +6,7 @@ exports.createManager = async (req, res) => {
     try {
         const manager = await managerService.createManager(req.body)
         res.status(201).redirect('/managers')
+        res.status(200).jason(manager);
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
