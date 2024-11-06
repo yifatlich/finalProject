@@ -127,3 +127,12 @@ exports.getUsernameFromSession= async (req, res) => {
         res.status(401).json({ message: "Not logged in" });
     }
 }
+
+exports.getCustomerCountByCity = async (req, res) => {
+  try {
+      const data = await customerService.getCustomerCountByCity()
+      res.json(data);
+  } catch (error) {
+      res.status(500).json({ message: error.message })
+  }
+}

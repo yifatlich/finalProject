@@ -12,6 +12,7 @@ const storeRoute = require("./routes/store")
 const weatherRoute = require("./routes/weather")
 const loginRoute = require('./routes/login')
 const expressEjsLayouts = require('express-ejs-layouts');
+const statisticsRoute = require('./routes/statistics')
 
 
 const cors = require("cors")
@@ -77,6 +78,7 @@ app.use(addressRoute)
 app.use(storeRoute)
 app.use(weatherRoute)
 app.use('/login', loginRoute)
+app.use(statisticsRoute)
 
 
 

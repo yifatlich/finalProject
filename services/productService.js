@@ -66,6 +66,16 @@ class ProductService {
             throw new Error('Error deleting product: ' + error.message);
         }
     }
+
+    static async getProductCountByCategory() {
+        try {
+            return await Product.aggregate([
+                { $group: { _id: "$category", count: { $sum: 1 } } }
+            ])
+        } catch (error) {
+            throw new Error("Error fetching product count by category: " + error.message)
+        }
+    }
 }
 
 
