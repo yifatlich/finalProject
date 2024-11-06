@@ -112,9 +112,18 @@ exports.handleLogin = async (req, res) => {
     const isMatch = await bcrypt.compare(password, customer[0].password)
     if (!isMatch) {
       return res.status(400).send("Invalid username or password")
-    }
-    res.send("Login successful")
+      }
+      req.session.username = customer;
+      res.send("Login successful")
   } catch (error) {
     res.status(500).send("An error occurred during login")
   }
+}
+
+exports.getUsernameFromSession= async (req, res) => {
+    if (req.session.username) {
+        res.status(200).json({ username: req.session.username });
+    } else {
+        res.status(401).json({ message: "Not logged in" });
+    }
 }

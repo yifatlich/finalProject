@@ -11,16 +11,20 @@ exports.handleLogin = async (req, res) => {
     const { username, password } = req.body
 
     try {
-        const customer = await customerService.searchCustomers({ username })
+        //const customer = await customerService.searchCustomers({ username })
+        const customer = await Customer.findOne({ username });
         if (!customer || customer.length === 0) {
             req.flash('error', 'Invalid username')
             return res.redirect('/login')
         }
 
-        if (password !== customer[0].password) {
+        //if (password !== customer[0].password) {
+        if (password !== customer.password) {
             req.flash('error', 'Invalid password')
             return res.redirect('/login')
         }
+        
+        req.session.username = customer.username;
         res.redirect('/')
     } catch (error) {
         console.error('Login error:', error)

@@ -10,4 +10,7 @@ router.get('/results', customerController.searchCustomers)
 router.get('/updateForm/:id', customerController.renderUpdateForm)
 router.get('/register', customerController.renderRegisterForm)
 router.post('/register', customerController.createCustomer)
+router.get('/get-username', customerController.getUsernameFromSession);
 module.exports = router
+
+
