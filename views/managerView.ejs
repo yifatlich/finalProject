@@ -67,6 +67,62 @@
                 </div>
             </div>
         </div>
+        <div class="card mb-4">
+            <div class="card-header  text-white">
+                <h2 class="h5 mb-0">Stores</h2>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">StoreName</th>
+                            <th scope="col">Address</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% stores.forEach(store => { %>
+                            <tr>
+                                <td><%= store.name %></td>
+                                <td><%= store.address %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>                    
+                </table>
+                <div style="text-align: right;">
+                    <form action="/stores" method="GET" style="display:inline;">
+                        <button type="submit" class="btn btn-lg">more stores detailes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header  text-white">
+                <h2 class="h5 mb-0">Managers</h2>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Manager</th>
+                            <th scope="col">createdAt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% managers.forEach(manager => { %>
+                            <tr>
+                                <td><%= manager.username %></td>
+                                <td><%= manager.createdAt %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>                    
+                </table>
+                <div style="text-align: right;">
+                    <form action="/managers" method="GET" style="display:inline;">
+                        <button type="submit" class="btn btn-lg">more managers detailes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col text-center">
         <form action="/statistics" method="GET" style="display:inline;">
