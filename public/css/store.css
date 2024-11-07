@@ -21,3 +21,16 @@ h1 {
     background-color: #ffffff;
     border-radius: 8px;
 }
+
+#map {
+    height: 500px;
+    width: 100%;
+}
+
+.container {
+    text-align: center;
+}
+
+.centered-button {
+    display: inline-block;
+}

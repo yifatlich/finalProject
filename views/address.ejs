@@ -3,12 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Stores on Map</title>
-    <style>
-        #map {
-            height: 500px;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/store.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -16,17 +11,14 @@
     <div id="map"></div>
     <script>
         let map, geocoder;
-
         function initMap() {
             map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 40.730610, lng: -73.935242 }, // Set an initial center
+                center: { lat: 40.730610, lng: -73.935242 },
                 zoom: 10,
             });
             geocoder = new google.maps.Geocoder();
-
-            // Fetch store data
             $.get('/api/stores', function(stores) {
-                console.log("Fetched stores: ", stores); // Log stores data
+                console.log("Fetched stores: ", stores); 
                 stores.forEach(store => {
                     geocodeAddress(store);
                 });
@@ -34,7 +26,6 @@
                 console.error("Error fetching stores: ", textStatus, errorThrown);
             });
         }
-
         function geocodeAddress(store) {
             geocoder.geocode({ 'address': store.address }, function(results, status) {
                 if (status === 'OK') {
@@ -42,6 +33,12 @@
                         map: map,
                         position: results[0].geometry.location,
                         title: store.name || "Store"
+                    });
+                    const infoWindow = new google.maps.InfoWindow({
+                        content: `<div><strong>${store.name}</strong><br>${store.address}</div>`
+                    });
+                    marker.addListener('click', function() {
+                        infoWindow.open(map, marker);
                     });
                 } else {
                     console.error("Geocode failed: " + status);
@@ -52,5 +49,8 @@
     <script async
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEv5TdHL-UlQy6M-wSvy62rBKk4TtJaCU&callback=initMap">
     </script>
+    <div class="container">
+        <button class="btn btn-primary mx-2 centered-button" onclick="window.location.href='/'">Back</button>
+    </div>
 </body>
 </html>

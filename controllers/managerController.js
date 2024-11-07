@@ -65,7 +65,7 @@ exports.handleLogin = async (req, res) => {
             req.flash('error', 'Invalid password')
             return res.redirect('/managers/login')
         }
-        res.redirect('/')
+        res.redirect('/managers/managerView')
     } catch (error) {
         console.error('Login error:', error)
         res.status(500).send("An error occurred during login")
