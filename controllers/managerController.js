@@ -1,6 +1,7 @@
 const managerService = require("../services/manager")
 const productService = require('../services/productService'); 
 const customerService = require('../services/customer'); 
+const storeService = require('../services/store'); 
 
 exports.createManager = async (req, res) => {
     try {
@@ -40,7 +41,9 @@ exports.renderManagerView = async (req, res) => { // Add async here
     try {
         const products = await productService.getAllProducts(req, res); // Use existing method to fetch products
         const customers = await customerService.listCustomers(req, res);
-        res.render('managerView', { products, customers }); // Render your manager view with data
+        const stores = await storeService.getAllStores(req, res);
+        const managers = await managerService.listManagers(req, res);
+        res.render('managerView', { products, customers, stores, managers }); // Render your manager view with data
     } catch (error) {
         console.error('Error rendering manager view:', error);
         res.status(500).send('Internal Server Error');
