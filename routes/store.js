@@ -7,7 +7,7 @@ router.post("/stores/add", storeController.addStore)
 router.get("/stores", storeController.listStores)
 router.get("/stores/edit/:id", storeController.renderEditStoreForm)
 router.post("/stores/edit/:id", storeController.editStore)
-router.post("/stores/delete/:id", storeController.deleteStore)
+router.delete("/stores/:id", storeController.deleteStore)
 router.get("/api/stores", storeController.getStoresJson)
 
 module.exports = router
