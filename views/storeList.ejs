@@ -64,7 +64,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         function confirmDelete(storeId) {
-            $('#deleteForm').attr('action', `/store/${storeId}?_method=DELETE`);
+            $('#deleteForm').attr('action', `/stores/${storeId}?_method=DELETE`);
             $('#deleteModal').modal('show');
         }
     </script>
