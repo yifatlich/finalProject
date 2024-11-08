@@ -120,3 +120,48 @@ exports.getProductCountByCategory = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
+
+exports.filterProductsByPriceRange = async (req, res) => {
+    const { priceRange } = req.query
+    if (!priceRange) {
+        return res.status(400).send('Price range is required')
+    }
+    try {
+        const range = priceRange.split('-').map(Number)
+        if (range.length !== 2) {
+        return res.status(400).send('Invalid price range format')
+    }
+    const products = await ProductService.filterByPriceRange(range[0], range[1])
+    res.render('product', { filteredProducts: products })
+    } catch (err) {
+      console.error("Error filtering products by price range:", err)
+      res.status(500).send("Server Error")
+    }
+}
+
+exports.groupProductsByPriceRange = async (req, res) => {
+    try {
+        const result = await ProductService.groupProductsByPriceRange()
+        res.render('productGroup', { groupedProducts: result })
+    } catch (err) {
+        console.error("Error grouping products by price range:", err)
+        res.status(500).send("Server Error")
+    }
+}
+
+exports.renderProductsByCategoryWithPriceRange = async (req, res) => {
+    const { category } = req.params
+    const { priceRange } = req.query
+    try {
+        let products
+        if (priceRange) {
+            products = await ProductService.getByCategoryAndPriceRange(category, priceRange)
+        } else {
+            products = await ProductService.getByCategory(category)
+        }
+        res.render('productsGrid', { products, category, priceRange })
+    } catch (error) {
+        console.error("Error fetching products by category and price range:", error)
+        res.status(500).send("An error occurred while loading products.")
+    }
+}
