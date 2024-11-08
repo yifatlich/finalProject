@@ -13,7 +13,7 @@ const getWeatherForm = (req, res) => {
 
 const getWeatherData = async (req, res) => {
     const { location } = req.body
-    const apiKey = "9f393640c52d4a2cab1110740240411" // The API Key
+    const apiKey = "" // API key
     const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}`
 
     try {
@@ -31,28 +31,3 @@ module.exports = {
     getWeatherData,
     locations,
 }
-
-// exports.getWeather = async (req, res) => {
-//     const location = req.query.location || "New York" // Default location or take from query
-//     const apiKey = "9f393640c52d4a2cab1110740240411"
-//     const apiUrl = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}`
-
-//     try {
-//         const response = await fetch(apiUrl)
-//         const data = await response.json()
-
-//         if (data.error) {
-//             return res.render("weather", { error: data.error.message })
-//         }
-
-//         res.render("weather", {
-//             location: data.location.name,
-//             temperature: data.current.temp_c,
-//             condition: data.current.condition.text,
-//             icon: data.current.condition.icon,
-//         })
-//     } catch (err) {
-//         console.error("Error fetching weather data:", err)
-//         res.render("weather", { error: "Unable to fetch weather data" })
-//     }
-// }
