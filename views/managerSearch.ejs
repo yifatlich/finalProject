@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Mangers</title>
+    <link rel="stylesheet" href="/css/customer.css"> 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Search Managers</h1>
+    <form action="/managers/results" method="GET" class="border p-4 rounded shadow-sm bg-white" id="search-form">
+        <label for="field">Select field:</label>
+        <select class="form-select" name="field" id="field" required>
+            <option selected>Select a field</option>
+            <option value="username">Username</option>
+            <option value="createdAt">time created</option>
+        </select>
+
+        <input type="text" name="value" required>
+        <button type="submit" class="btn btn-info">Search</button>
+    </form>
+</body>
+</html>

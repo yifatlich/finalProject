@@ -99,8 +99,6 @@ exports.getProductDetails = async (req, res) => {
 
 
 
-
-
 exports.renderProductsByCategory = async (req, res) => {
     const category = req.params.category;
     try {
@@ -165,3 +163,10 @@ exports.renderProductsByCategoryWithPriceRange = async (req, res) => {
         res.status(500).send("An error occurred while loading products.")
     }
 }
+
+
+
+exports.renderSearchForm = (req, res) => {
+    res.render("productsSearch")
+}
+
