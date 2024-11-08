@@ -27,14 +27,16 @@ exports.completeCheckout = async (req, res) => {
     }
     try {
         const cart = await Cart.getCartByUsername(username);
-        const hist = await Hist.addToHistory(cart);
+        const hist = await Hist.addToHistory(username, cart);
+        const new_cart = await Cart.clearCart(username);
+        return res.redirect('/');
 
         if (!cart) {
             return res.status(500).json({ message: 'Failed to add cart to history' });
         }
         return res.json(cart);
     } catch (error) {
-        rconsole.error('Error in completeCheckout:', error);
+        console.error('Error in completeCheckout:', error);
         return res.status(500).json({ message: error.message });
     }
 }

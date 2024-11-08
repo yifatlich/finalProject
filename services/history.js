@@ -2,18 +2,17 @@ const Hist = require('../models/history');
 const Cart = require('../models/cart');
 
 const HistoryService = {
-    async addToHistory(cart) {
+    async addToHistory(username, cart) {
 
         try {
             let history = await Hist.findOne({ username });
-
             if (!history) {
-                history = new history({
+                history = new Hist({
                     username: username,
                     carts: [cart],
                 });
             } else {
-                history.items.push(cart);
+                history.carts.push(cart);
             }
 
             history.updatedAt = Date.now();
