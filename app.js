@@ -13,8 +13,8 @@ const weatherRoute = require("./routes/weather")
 const loginRoute = require('./routes/login')
 const expressEjsLayouts = require('express-ejs-layouts');
 const statisticsRoute = require('./routes/statistics')
-const Xroutes = require('./routes/X')
-
+const twitterRoute = require('./routes/twitter')
+const checkoutRoute = require("./routes/checkout");
 
 
 
@@ -82,8 +82,8 @@ app.use(storeRoute)
 app.use(weatherRoute)
 app.use('/login', loginRoute)
 app.use(statisticsRoute)
-app.use('/', Xroutes)
-
+app.use('/twitter', twitterRoute)
+app.use('/checkout', checkoutRoute)
 
 
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } else if (tweets.length > 0) { %>
+            <% tweets.forEach(function(tweetData) { %>
+                <h1 class="text-center">Latest Tweets from <%= tweetData.username %></h1>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <% tweetData.tweets.forEach(function(tweet) { %>
+                            <p><strong>@<%= tweetData.username %>:</strong> <%= tweet.text %></p>
+                        <% }) %>
+                    </div>
+                </div>
+                <% }) %>
+            <% } else { %>
+                <h2 class="text-center">No Tweets Found</h2>
+            <% } %>
+    </div>
+</body>
+</html>
