@@ -2,12 +2,10 @@ const storeService = require("../services/store")
 
 exports.renderAddStoreForm = (req, res) => {
     res.render("addStore")
-};
+}
 
 exports.addStore = async (req, res) => {
     const { name, address } = req.body
-    // const newStore = new Store({ name, address })
-
     try {
         await storeService.createStore(name, address)
         res.redirect("/stores")
