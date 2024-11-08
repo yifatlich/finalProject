@@ -24,10 +24,7 @@ router.delete('/:id', productController.deleteProduct);
 router.get('/:id', productController.getProductDetails);
 
 // render grid page
-router.get('/category/:category', productController.renderProductsByCategory);
-
-
-
+router.get('/category/:category', productController.renderProductsByCategoryWithPriceRange);
 
 
 module.exports = router;

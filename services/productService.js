@@ -1,4 +1,3 @@
-// services/productService.js
 const Product = require('../models/product');
 
 class ProductService {
@@ -11,18 +10,37 @@ class ProductService {
         }
     }
 
-    // In your productService.js or equivalent file
+    // Get products by category
     static async getByCategory(category) {
         try {
             const products = await Product.find({ category: new RegExp(`^${category}$`, 'i') });
             return products;
         } catch (error) {
-            console.error("Error fetching products by category in service:", error);
+            console.error("Error fetching products by category:", error);
             throw error;
         }
     }
 
-    // Get a product by ID
+    static async getByCategoryAndPriceRange(category, priceRange) {
+        try {
+            const rangeMap = {
+                "0-50": [0, 50],
+                "51-100": [51, 100],
+                "101-150": [101, 150],
+                "151-200": [151, 200],
+                "201-250": [201, 250],
+                "250+": [250, Infinity], 
+            }
+            const [minPrice, maxPrice] = rangeMap[priceRange] || [0, Infinity]
+            return await Product.find({
+                category: new RegExp(`^${category}$`, 'i'),
+                price: { $gte: minPrice, $lte: maxPrice }
+            })
+        } catch (error) {
+            throw new Error('Error fetching products by category and price range: ' + error.message)
+        }
+    }
+
     static async getProductById(id) {
         try {
             const product = await Product.findById(id);
@@ -34,10 +52,6 @@ class ProductService {
             throw new Error('Error fetching product: ' + error.message);
         }
     }
-
-   
-    
-
 
     // Add a new product
     static async addProduct(productData) {
@@ -71,13 +85,32 @@ class ProductService {
         try {
             return await Product.aggregate([
                 { $group: { _id: "$category", count: { $sum: 1 } } }
-            ])
+            ]);
         } catch (error) {
-            throw new Error("Error fetching product count by category: " + error.message)
+            throw new Error("Error fetching product count by category: " + error.message);
+        }
+    }
+
+    static async groupProductsByPriceRange() {
+        try {
+            const result = await Product.aggregate([
+                {
+                    $bucket: {
+                        groupBy: "$price",
+                        boundaries: [0, 50, 100, 150, 200, 250, Infinity], 
+                        default: "Other",
+                        output: {
+                            totalProducts: { $sum: 1 }, 
+                            avgPrice: { $avg: "$price" } 
+                        }
+                    }
+                }
+            ])
+            return result
+        } catch (err) {
+            throw new Error("Error in aggregation: " + err.message)
         }
     }
 }
-
-
 
 module.exports = ProductService;
