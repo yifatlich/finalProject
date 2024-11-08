@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+	<body>
+		<h1>Search products</h1>
+		<form action="/products/result" method="GET" class="border p-4 rounded shadow-sm bg-white" id="search-form">
+			<label for="field">Select field:</label>
+			<select class="form-select" name="field" id="field" required="">
+				<option selected="">Select a field</option>
+				<option value="name">products</option>
+				<option value="description">description</option>
+				<option value="price">price</option>
+				<option value="category">category</option>
+				<option value="imageUrl">imag</option>
+				<option value="quantity">quantity</option>
+				
+			</select>
+
+			<input type="text" name="value" required=""></input>
+				<button type="submit" class="btn btn-info">Search</button>
+			</form>
+	</body>
+</html>

@@ -26,5 +26,11 @@ router.get('/:id', productController.getProductDetails);
 // render grid page
 router.get('/category/:category', productController.renderProductsByCategoryWithPriceRange);
 
+//router.get('/result', productController.searchProducts);
+
+router.get('/search', productController.renderSearchForm);
+
+
+
 
 module.exports = router;

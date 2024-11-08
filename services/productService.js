@@ -10,6 +10,8 @@ class ProductService {
         }
     }
 
+    
+
     // Get products by category
     static async getByCategory(category) {
         try {
@@ -52,6 +54,8 @@ class ProductService {
             throw new Error('Error fetching product: ' + error.message);
         }
     }
+    
+
 
     // Add a new product
     static async addProduct(productData) {
@@ -110,6 +114,9 @@ class ProductService {
         } catch (err) {
             throw new Error("Error in aggregation: " + err.message)
         }
+    }
+    static searchProducts = async (query) => {
+        return await Product.find(query)
     }
 }
 

@@ -21,6 +21,9 @@
                             <td><%= manager.password %></td>  
                             <td><%= manager.createdAt.toDateString() %></td>
                             <td>
+								<form action="/managers/updateForm/<%= manager._id %>" method="GET" style="display:inline;">
+									<button type="submit" class="btn btn-warning btn-sm">Update</button>
+								</form>
                                 <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('<%= manager._id %>')">Delete</button>
                             </td>
                         </tr>
@@ -55,7 +58,7 @@
         </div>
     </div>
 
-    
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function confirmDelete(managerId) {
             $('#deleteForm').attr('action', `/managers/${managerId}?_method=DELETE`);

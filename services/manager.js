@@ -6,6 +6,13 @@ const createManager = async (data) => {
 }
 
 
+const updateManager = async (id, managerData) => { 
+    try {
+        return await Manager.findByIdAndUpdate(id, managerData, { new: true });
+    } catch (error) {
+        throw new Error('Error updating manager: ' + error.message);
+    }
+}
 
 const deleteManager = async (id) => {
     return await Manager.findByIdAndDelete(id)
@@ -21,6 +28,7 @@ const searchManagers = async (query) => {
 
 module.exports = {
     createManager,
+    updateManager,
     deleteManager,
     listManagers,
     searchManagers

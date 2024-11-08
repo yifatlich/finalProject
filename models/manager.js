@@ -10,7 +10,7 @@ const ManagersSchema = new Schema({
     password: {
         type: String,
         required: true,
-        unique: true,
+        
         },
     
     createdAt: {
