@@ -226,3 +226,40 @@ exports.renderProductsByCategoryWithPriceRangeAndName = async (req, res) => {
         res.status(500).send("An error occurred while loading products.")
     }
 }
+
+
+exports.renderProductsByCategoryWithPriceRangeAndNameHomePage = async (req, res) => {
+    const { priceRange } = req.query
+    const { category } = req.query
+    const { name } = req.query
+
+    try {
+        let products
+        if (priceRange && name && category) {
+            products = await ProductService.getByCategoryAndPriceRangeAndName(category, priceRange, name)
+        }
+        else if (priceRange && category) {
+            products = await ProductService.getByCategoryAndPriceRange(category, priceRange)
+        }
+        else if (priceRange && !name) {
+            products = await ProductService.getByPriceRange(priceRange)
+        }
+        else if (name && category) {
+            products = await ProductService.getByCategoryAndName(name, category)
+        }
+        else if (name) {
+            products = await ProductService.getByName(name)
+        }
+        else {
+            products = await ProductService.getByCategory(category)
+        }
+        let next_cate = "Clothing"
+        if (!category) {
+            next_cate = category
+        }
+        res.render('productsGrid', { products, category: next_cate, category, priceRange, name })
+    } catch (error) {
+        console.error("Error fetching products by category and price range:", error)
+        res.status(500).send("An error occurred while loading products.")
+    }
+}
