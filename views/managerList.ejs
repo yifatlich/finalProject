@@ -1,40 +1,55 @@
 
 <body>
-    <div class="container">
-        <h1 class="text-center my-4">Managers List</h1>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>#</th> 
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>CreatedAt</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% managers.forEach((manager, index) => { %>
-                        <tr>
-                            <td><%= index + 1 %></td> 
-                            <td><%= manager.username %></td>
-                            <td><%= manager.password %></td>  
-                            <td><%= manager.createdAt.toDateString() %></td>
-                            <td>
-								<form action="/managers/updateForm/<%= manager._id %>" method="GET" style="display:inline;">
-									<button type="submit" class="btn btn-warning btn-sm">Update</button>
-								</form>
-                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('<%= manager._id %>')">Delete</button>
-                            </td>
-                        </tr>
-                    <% }) %>
-                </tbody>
-            </table>
-        </div>
-        <div class="d-flex justify-content-center mt-4">
-            <button class="btn btn-primary mx-2" onclick="window.location.href='/managers/register'">Add New Manager</button>
-        </div>
-    </div>
+	<div class="container">
+		<h1 class="text-center my-4">Managers List</h1>
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Username</th>
+						<th>Password</th>
+						<th>CreatedAt</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% managers.forEach((manager, index) => { %>
+					<tr>
+						<td>
+							<%= index + 1 %>
+						</td>
+						<td>
+							<%= manager.username %>
+						</td>
+						<td>
+							<%= manager.password %>
+						</td>
+						<td>
+							<%= manager.createdAt.toDateString() %>
+						</td>
+						<td>
+							<form action="/managers/updateForm/"
+								<%= manager._id %>" method="GET" style="display:inline;">
+								<button type="submit" class="btn btn-warning btn-sm">Update</button>
+							</form>
+
+							<button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('"
+								<%= manager._id %>')">Delete
+							</button>
+						</td>
+					</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+		<div class="d-flex justify-content-center mt-4">
+			<button class="btn btn-primary mx-2" onclick="window.location.href='/managers/register'">Add New Manager</button>
+			<button class="btn btn-primary mx-2" onclick="window.location.href='/managers/search'">search Manager</button>
+		</div>
+		
+
+	</div>	
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
