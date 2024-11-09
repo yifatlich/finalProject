@@ -27,6 +27,7 @@ const updateCustomer = async (id, data) => {
         const updatedCustomer = await Customer.findByIdAndUpdate(id, {
             username: data.username,
             email: data.email,
+            password: data.password,
             phone: data.phone,
             address: {
                 street: data.address.street,
