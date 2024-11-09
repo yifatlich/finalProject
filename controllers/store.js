@@ -61,3 +61,12 @@ exports.getStoresJson = async (req, res) => {
         res.status(500).json({ message: "Error fetching stores" })
     }
 }
+
+exports.listStoresNoActions = async (req, res) => {
+    try {
+        const stores = await storeService.getAllStores()
+        res.render("storeListUser", { stores })  // New view without actions
+    } catch (err) {
+        res.status(500).json({ message: "Error fetching stores" })
+    }
+}

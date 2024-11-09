@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store List</title>
+    <link rel="stylesheet" href="/css/store.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Our Stores</h1>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Outlet</th>
+                        <th>Accessible</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% stores.forEach(store => { %>
+                        <tr>
+                            <td><%= store.name %></td>
+                            <td><%= store.address %></td>
+                            <td><%= store.outlet ? 'v' : 'x' %></td> 
+                            <td><%= store.accessible ? 'v' : 'x' %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
