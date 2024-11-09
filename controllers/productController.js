@@ -88,8 +88,6 @@ exports.deleteProduct = async (req, res) => {
 
 // Product details page
 exports.getProductDetails = async (req, res) => {
-    const { cate } = req.query
-    console.log(cate);
     try {
         const product = await ProductService.getProductById(req.params.id);
         res.render('productsDetails', { product });
@@ -198,10 +196,6 @@ exports.renderProductsByCategoryWithPriceRangeAndName = async (req, res) => {
     const { cate } = req.query
     const { name } = req.query
     
-    console.log(category);
-    console.log(cate);
-    console.log(name);
-    console.log(priceRange);
     try {
         let products
         if (priceRange && name && cate) {
