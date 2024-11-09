@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-
+const mongoose = require('mongoose');
 class ProductService {
     // Get all products
     static async getAllProducts() {
@@ -15,6 +15,10 @@ class ProductService {
     // Get products by category
     static async getByCategory(category) {
         try {
+            if (!category) {
+                const products = await Product.find();
+                return products;
+            }
             const products = await Product.find({ category: new RegExp(`^${category}$`, 'i') });
             return products;
         } catch (error) {
@@ -43,7 +47,73 @@ class ProductService {
         }
     }
 
+    static async getByName(name) {
+        try {
+            const products = await Product.find({ name: { $regex: `^${name}$`, $options: 'i' } });
+            return products;
+        } catch (error) {
+            console.error("Error fetching products by category:", error);
+            throw error;
+        }
+    }
+
+    static async getByCategoryAndName(name, category) {
+        try {
+            const products = await Product.find({
+                category: new RegExp(`^${category}$`, 'i'),
+                name: { $regex: `^${name}$`, $options: 'i' }
+            });
+            return products;
+        } catch (error) {
+            console.error("Error fetching products by category:", error);
+            throw error;
+        }
+    }
+
+    static async getByCategoryAndPriceRangeAndName(category, priceRange, name) {
+        try {
+            const rangeMap = {
+                "0-50": [0, 50],
+                "51-100": [51, 100],
+                "101-150": [101, 150],
+                "151-200": [151, 200],
+                "201-250": [201, 250],
+                "250+": [250, Infinity],
+            }
+            const [minPrice, maxPrice] = rangeMap[priceRange] || [0, Infinity]
+            return await Product.find({
+                category: new RegExp(`^${category}$`, 'i'),
+                name: { $regex: `^${name}$`, $options: 'i' },
+                price: { $gte: minPrice, $lte: maxPrice }
+            })
+        } catch (error) {
+            throw new Error('Error fetching products by category and price range and name: ' + error.message)
+        }
+    }
+
+    static async getByPriceRange(priceRange) {
+        try {
+            const rangeMap = {
+                "0-50": [0, 50],
+                "51-100": [51, 100],
+                "101-150": [101, 150],
+                "151-200": [151, 200],
+                "201-250": [201, 250],
+                "250+": [250, Infinity],
+            }
+            const [minPrice, maxPrice] = rangeMap[priceRange] || [0, Infinity]
+            return await Product.find({
+                price: { $gte: minPrice, $lte: maxPrice }
+            })
+        } catch (error) {
+            throw new Error('Error fetching products by category and price range and name: ' + error.message)
+        }
+    }
     static async getProductById(id) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw new Error('Invalid input for ObjectId: ' + id);
+        }
+        
         try {
             const product = await Product.findById(id);
             if (!product) {

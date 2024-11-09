@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center">Old Cart: <%= cart.updatedAt %></h2>
+        <h2 class="text-center">Old Cart: <%= new Date(cart.updatedAt).toLocaleDateString() %> </h2>
 
         <% if (cart && cart.items.length > 0) { %>
             
