@@ -68,11 +68,16 @@ const getCustomerCountByCity = async () => {
     }
 }
 
+const getCustomerByUsername = async (username) => {
+    return await Customer.findOne({ username })
+}
+
 module.exports = {
     createCustomer,
     updateCustomer,
     deleteCustomer,
     listCustomers,
     searchCustomers,
-    getCustomerCountByCity
+    getCustomerCountByCity,
+    getCustomerByUsername
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Old Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Old Cart: <%= cart.updatedAt %></h2>
+
+        <% if (cart && cart.items.length > 0) { %>
+            
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% cart.items.forEach((item, index) => { %>
+                        <tr>
+                            <th scope="row"><%= index + 1 %></th>
+                            <td><%= item.productName %></td>
+                            <td>
+                                <span><%= item.quantity %></span>
+                            </td>
+                            <td>$<%= item.price %></td>
+                            <td>$<%= (item.price * item.quantity) %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+            
+            <div class="d-flex justify-content-between">
+                <h5>Total Price:</h5>
+                <h5>$<%= cart.items.reduce((sum, item) => sum + (item.price * item.quantity), 0) %></h5>
+            </div>
+
+        <% } else { %>
+            <p class="text-center">Your cart is empty.</p>
+        <% } %>
+    </div>
+     
