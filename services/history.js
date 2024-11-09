@@ -23,6 +23,10 @@ const HistoryService = {
         } catch (error) {
             console.error('Error adding cart to History:', error.message);
         }
+    },
+
+    async getHistoryByUsername(username) {
+        return await Hist.findOne({ username });
     }
 };
 

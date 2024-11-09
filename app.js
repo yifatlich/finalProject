@@ -15,6 +15,7 @@ const expressEjsLayouts = require('express-ejs-layouts');
 const statisticsRoute = require('./routes/statistics')
 const twitterRoute = require('./routes/twitter')
 const checkoutRoute = require("./routes/checkout");
+const accountRoute = require("./routes/account");
 
 
 
@@ -84,8 +85,7 @@ app.use('/login', loginRoute)
 app.use(statisticsRoute)
 app.use('/twitter', twitterRoute)
 app.use('/checkout', checkoutRoute)
-
-
+app.use('/account', accountRoute)
 
 
 app.listen(80)
