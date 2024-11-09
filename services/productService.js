@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-
+const mongoose = require('mongoose');
 class ProductService {
     // Get all products
     static async getAllProducts() {
@@ -43,9 +43,44 @@ class ProductService {
         }
     }
 
-    static async getProductById(id) {
+    static async getByName(name) {
         try {
-            const product = await Product.findById(id);
+            const allproducts = await Product.find();
+            const products = await Product.find({ name: { $regex: `^${name}$`, $options: 'i' } });
+            console.log(products);
+            console.log(allproducts);
+            return products;
+        } catch (error) {
+            console.error("Error fetching products by category:", error);
+            throw error;
+        }
+    }
+
+    static async getByCategoryAndPriceRangeAndName(category, priceRange, name) {
+        try {
+            const rangeMap = {
+                "0-50": [0, 50],
+                "51-100": [51, 100],
+                "101-150": [101, 150],
+                "151-200": [151, 200],
+                "201-250": [201, 250],
+                "250+": [250, Infinity],
+            }
+            const [minPrice, maxPrice] = rangeMap[priceRange] || [0, Infinity]
+            return await Product.find({
+                category: new RegExp(`^${category}$`, 'i'),
+                name: { $regex: `^${name}$`, $options: 'i' },
+                price: { $gte: minPrice, $lte: maxPrice }
+            })
+        } catch (error) {
+            throw new Error('Error fetching products by category and price range and name: ' + error.message)
+        }
+    }
+
+    static async getProductById(id) {
+        const prod_id = new mongoose.Types.ObjectId(id)
+        try {
+            const product = await Product.findById(prod_id);
             if (!product) {
                 throw new Error('Product not found');
             }
