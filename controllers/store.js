@@ -5,12 +5,12 @@ exports.renderAddStoreForm = (req, res) => {
 }
 
 exports.addStore = async (req, res) => {
-    const { name, address } = req.body
+    const { name, address, outlet, accessible } = req.body
     try {
-        await storeService.createStore(name, address)
+        await storeService.createStore(name, address, outlet, accessible)
         res.redirect("/stores")
     } catch (err) {
-        res.status(500).json({ message: "Error adding store" });
+        res.status(500).json({ message: "Error adding store" })
     }
 }
 
@@ -33,9 +33,11 @@ exports.renderEditStoreForm = async (req, res) => {
 }
 
 exports.editStore = async (req, res) => {
-    const { name, address } = req.body
+    const { name, address, outlet, accessible } = req.body
+    const outletValue = outlet === 'yes'
+    const accessibleValue = accessible === 'yes'
     try {
-        await storeService.updateStore(req.params.id, name, address)
+        await storeService.updateStore(req.params.id, name, address, outletValue, accessibleValue)
         res.redirect("/stores");
     } catch (err) {
         res.status(500).json({ message: "Error updating store" })
