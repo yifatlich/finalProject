@@ -26,7 +26,6 @@ exports.getOldCartByDate = async (req, res) => {
     }
     try {
         const cart = await Hist.getCartByUsername(username, cart_id);
-        console.log(cart);
         res.render('oldCart', { cart });
     } catch (error) {
         console.error('Error retrieving cart:', error);
