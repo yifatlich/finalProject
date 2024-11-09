@@ -17,3 +17,21 @@ exports.getAccountByUsername = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+exports.getOldCartByDate = async (req, res) => {
+    const username = req.session.username;
+    console.log(username);
+    const cart_id = req.params.id;
+    console.log(cart_id);
+    if (!username) {
+        return res.redirect('/login');
+    }
+    try {
+        const cart = await Hist.getCartByUsername(username, cart_id);
+        console.log(cart);
+        res.render('oldCart', { cart });
+    } catch (error) {
+        console.error('Error retrieving cart:', error);
+        res.status(500).json({ message: error.message });
+    }
+}
