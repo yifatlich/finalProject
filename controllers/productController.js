@@ -167,6 +167,25 @@ exports.renderProductsByCategoryWithPriceRange = async (req, res) => {
 
 
 exports.renderSearchForm = (req, res) => {
-    res.render("productsSearch")
+    res.render("productSearch")
 }
 
+exports.searchProducts = async (req, res) => {
+    try {
+        const { field, value } = req.query
+        let products = []
+        let message = ""
+        if (field && value) {
+            const filter = {
+                [field]: { $regex: value, $options: "i" }
+            }
+            products = await ProductService.searchProducts(filter)
+        }
+        if (products.length === 0 && value) {
+            message = "No managers found"
+        }
+        res.render("productResults", { products, message })
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}

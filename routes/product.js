@@ -11,6 +11,10 @@ router.get('/add', productController.showAddProductForm);
 //add a new product
 router.post('/', productController.addProduct);
 
+router.get('/search', productController.renderSearchForm);
+
+router.get('/results', productController.searchProducts);
+
 //form to update a product
 router.get('/updateForm/:id', productController.showUpdateProductForm);
 
@@ -26,9 +30,9 @@ router.get('/:id', productController.getProductDetails);
 // render grid page
 router.get('/category/:category', productController.renderProductsByCategoryWithPriceRange);
 
-//router.get('/result', productController.searchProducts);
 
-router.get('/search', productController.renderSearchForm);
+
+
 
 
 
