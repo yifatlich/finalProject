@@ -15,6 +15,8 @@
                     <tr>
                         <th>Name</th>
                         <th>Address</th>
+                        <th>Outlet</th>
+                        <th>Accessible</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -23,6 +25,8 @@
                         <tr>
                             <td><%= store.name %></td>
                             <td><%= store.address %></td>
+                            <td><%= store.outlet ? 'v' : 'x' %></td> 
+                            <td><%= store.accessible ? 'v' : 'x' %></td>
                             <td>
                                 <form action="/stores/edit/<%= store._id %>" method="GET" style="display:inline;">
                                     <button type="submit" class="btn btn-warning btn-sm">Update</button>
