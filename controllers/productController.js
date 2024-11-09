@@ -88,6 +88,8 @@ exports.deleteProduct = async (req, res) => {
 
 // Product details page
 exports.getProductDetails = async (req, res) => {
+    const { cate } = req.query
+    console.log(cate);
     try {
         const product = await ProductService.getProductById(req.params.id);
         res.render('productsDetails', { product });
@@ -193,33 +195,38 @@ exports.searchProducts = async (req, res) => {
 exports.renderProductsByCategoryWithPriceRangeAndName = async (req, res) => {
     const { category } = req.params
     const { priceRange } = req.query
-    //const { cate } = req.query
+    const { cate } = req.query
     const { name } = req.query
     
-    //console.log(category);
-    //console.log(name);
-    //console.log(priceRange);
+    console.log(category);
+    console.log(cate);
+    console.log(name);
+    console.log(priceRange);
     try {
         let products
-        if (priceRange && name && category) {
-            products = await ProductService.getByCategoryAndPriceRangeAndName(category, priceRange,name)
+        if (priceRange && name && cate) {
+            products = await ProductService.getByCategoryAndPriceRangeAndName(cate, priceRange,name)
         }
-        else if (priceRange && category) {
-            products = await ProductService.getByCategoryAndPriceRange(category, priceRange)
+        else if (priceRange && cate) {
+            products = await ProductService.getByCategoryAndPriceRange(cate, priceRange)
         }
         else if (priceRange && !name) {
             products = await ProductService.getByPriceRange(priceRange)
         }
-        else if (name && category) {
-            products = await ProductService.getByCategoryAndName(name, category)
+        else if (name && cate) {
+            products = await ProductService.getByCategoryAndName(name, cate)
         }
         else if (name) {
-            products = await ProductService.getByName(category, priceRange)
+            products = await ProductService.getByName(name)
         }
         else {
-            products = await ProductService.getByCategory(category)
+            products = await ProductService.getByCategory(cate)
         }
-        res.render('productsGrid', { products, category: category, priceRange, name })
+        let next_cate = cate
+        if (!cate) {
+            next_cate = category
+        }
+        res.render('productsGrid', { products, category: next_cate, cate, priceRange, name })
     } catch (error) {
         console.error("Error fetching products by category and price range:", error)
         res.status(500).send("An error occurred while loading products.")

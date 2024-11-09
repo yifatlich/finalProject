@@ -33,8 +33,4 @@ router.get('/category/:category', productController.renderProductsByCategoryWith
 
 
 
-
-
-
-
 module.exports = router;
