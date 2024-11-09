@@ -29,8 +29,7 @@
 							<%= manager.createdAt.toDateString() %>
 						</td>
 						<td>
-							<form action="/managers/updateForm/"
-								<%= manager._id %>" method="GET" style="display:inline;">
+							<form action="/managers/updateForm/<%= manager._id %>" method="GET" style="display:inline;">
 								<button type="submit" class="btn btn-warning btn-sm">Update</button>
 							</form>
 
