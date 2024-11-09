@@ -193,23 +193,33 @@ exports.searchProducts = async (req, res) => {
 exports.renderProductsByCategoryWithPriceRangeAndName = async (req, res) => {
     const { category } = req.params
     const { priceRange } = req.query
+    //const { cate } = req.query
     const { name } = req.query
+    
+    //console.log(category);
+    //console.log(name);
+    //console.log(priceRange);
     try {
         let products
-        if (priceRange && name) {
+        if (priceRange && name && category) {
             products = await ProductService.getByCategoryAndPriceRangeAndName(category, priceRange,name)
         }
-        else if (priceRange) {
+        else if (priceRange && category) {
             products = await ProductService.getByCategoryAndPriceRange(category, priceRange)
         }
+        else if (priceRange && !name) {
+            products = await ProductService.getByPriceRange(priceRange)
+        }
+        else if (name && category) {
+            products = await ProductService.getByCategoryAndName(name, category)
+        }
         else if (name) {
-            console.log(name);
             products = await ProductService.getByName(category, priceRange)
         }
         else {
             products = await ProductService.getByCategory(category)
         }
-        res.render('productsGrid', { products, category, priceRange, name })
+        res.render('productsGrid', { products, category: category, priceRange, name })
     } catch (error) {
         console.error("Error fetching products by category and price range:", error)
         res.status(500).send("An error occurred while loading products.")
