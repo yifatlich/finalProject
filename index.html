@@ -66,6 +66,49 @@
         </div>
     </nav>
     <main>
+        <section id="search-section" >
+            <form action="/products/search/categorys" method="GET" >
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Search prodact name:</th>
+                            <th>Choose a category:</th>
+                            <th>Search a price:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Enter prodact name">
+                            </td>
+
+                            <td>
+                                <select name="category" id="category" class="form-select">
+                                    <option value="Clothing"
+                                    <%= category === 'Clothing' ? 'selected' : '' %>Clothing
+                                </option>
+                                    <option value="Shoes"
+                                    <%= category === 'Shoes' ? 'selected' : '' %>Shoes
+                                </option>
+                                    <option value="Accessories"
+                                    <%= category === 'Accessories' ? 'selected' : '' %>Accessories
+                                </option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <input type="text" name="priceRange" id="priceRange" class="form-control" placeholder="Enter prodact price">
+                            </td>
+
+                            <td>
+                                <button type="submit" class="btn btn-primary text-white w-100">Search</button>
+                            <td>
+
+                        </tr>
+                    </tbody>
+                </table>
+</form>
+        </section>
         <div class="container-fluid">
             <div class="carousel-container">
                 <div id="carouselExampleIndicators" class="carousel slide">
