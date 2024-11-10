@@ -88,6 +88,12 @@
             $('#deleteModal').modal('show');
         }
     </script>
+    <script>
+		const cancelButton = document.querySelector('.btn-secondary');
+		cancelButton.addEventListener('click', function () {
+			$('#deleteModal').modal('hide');
+		});
+	</script>
 	</div>
 </body>
 </html>
