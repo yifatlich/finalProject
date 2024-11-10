@@ -30,6 +30,10 @@ router.get('/:id', productController.getProductDetails);
 // render grid page
 router.get('/category/:category', productController.renderProductsByCategoryWithPriceRange);
 
+// render grid page
+router.get('/search/categorys', productController.renderProductsByCategoryWithPriceRangeAndNameHomePage);
+
+
 
 
 

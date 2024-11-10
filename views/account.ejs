@@ -50,7 +50,7 @@
                         <tr>
                             <th scope="row"><%= index + 1 %></th>
                             <td>
-                                <a href="/account/:username/<%=item._id %>" class="btn btn-secondary mt-4"><%= item.updatedAt %></a>
+                                <a href="/account/:username/<%=item._id %>" class="btn btn-secondary mt-4"><%= new Date(item.updatedAt).toLocaleDateString() %></a>
                             </td>
                         </tr>
                     <% }) %>
