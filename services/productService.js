@@ -188,6 +188,41 @@ class ProductService {
     static searchProducts = async (query) => {
         return await Product.find(query)
     }
+
+    static async getByCategoryAndPriceRangeAndNameSearch(category, priceRange, name) {
+        try {
+
+            return await Product.find({
+                category: new RegExp(`^${category}$`, 'i'),
+                name: { $regex: `^${name}$`, $options: 'i' },
+                price: priceRange
+            })
+        } catch (error) {
+            throw new Error('Error fetching products by category and price range and name: ' + error.message)
+        }
+    }
+
+    static async getByCategoryAndPriceRangeSearch(category, priceRange) {
+        try {
+            return await Product.find({
+                category: new RegExp(`^${category}$`, 'i'),
+                price: priceRange
+            })
+        } catch (error) {
+            throw new Error('Error fetching products by category and price range: ' + error.message)
+        }
+    }
+    static async getByPriceRangeSearch(priceRange) {
+        try {
+            return await Product.find({
+                price: priceRange
+            })
+        } catch (error) {
+            throw new Error('Error fetching products by category and price range and name: ' + error.message)
+        }
+    }
+
 }
 
+    
 module.exports = ProductService;

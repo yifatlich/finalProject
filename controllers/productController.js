@@ -199,13 +199,13 @@ exports.renderProductsByCategoryWithPriceRangeAndNameHomePage = async (req, res)
     try {
         let products
         if (priceRange && name && category) {
-            products = await ProductService.getByCategoryAndPriceRangeAndName(category, priceRange, name)
+            products = await ProductService.getByCategoryAndPriceRangeAndNameSearch(category, priceRange, name)
         }
         else if (priceRange && category) {
-            products = await ProductService.getByCategoryAndPriceRange(category, priceRange)
+            products = await ProductService.getByCategoryAndPriceRangeSearch(category, priceRange)
         }
         else if (priceRange && !name) {
-            products = await ProductService.getByPriceRange(priceRange)
+            products = await ProductService.getByPriceRangeSearch(priceRange)
         }
         else if (name && category) {
             products = await ProductService.getByCategoryAndName(name, category)
