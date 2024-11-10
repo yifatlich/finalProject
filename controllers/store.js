@@ -70,14 +70,3 @@ exports.listStoresNoActions = async (req, res) => {
         res.status(500).json({ message: "Error fetching stores" })
     }
 }
-
-exports.searchStores = async (req, res) => {
-   
-    try {
-        const stores = await storeService.searchStores(req.query); 
-        res.render('storeListUser', { stores}); 
-    } catch (error) {
-        res.status(500).send('Error retrieving stores');
-    }
-
-}
