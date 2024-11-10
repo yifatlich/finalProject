@@ -10,5 +10,6 @@ router.get("/stores/edit/:id", storeController.renderEditStoreForm)
 router.post("/stores/edit/:id", storeController.editStore)
 router.delete("/stores/:id", storeController.deleteStore)
 router.get("/api/stores", storeController.getStoresJson)
+router.get("/stores/search", storeController.searchStores);
 
 module.exports = router
