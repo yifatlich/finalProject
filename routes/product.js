@@ -28,7 +28,11 @@ router.delete('/:id', productController.deleteProduct);
 router.get('/:id', productController.getProductDetails);
 
 // render grid page
-router.get('/category/:category', productController.renderProductsByCategoryWithPriceRangeAndName);
+router.get('/category/:category', productController.renderProductsByCategoryWithPriceRange);
+
+
+
+
 
 
 

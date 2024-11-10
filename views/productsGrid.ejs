@@ -13,22 +13,6 @@
 			  <option value="201-250" <%= priceRange === '201-250' ? 'selected' : '' %>>$201 - $250</option>
 			  <option value="250+" <%= priceRange === '250+' ? 'selected' : '' %>>More than $250</option>
 			</select>
-			<label for="cate">Choose a category:</label>
-			<select name="cate" id="cate" class="form-select">
-				<option value="Clothing"
-					<%= cate === 'Clothing' ? 'selected' : '' %>>Clothing
-					</option>
-				<option value="Shoes"
-					<%= cate === 'Shoes' ? 'selected' : '' %>>Shoes
-					</option>
-				<option value="Accessories"
-					<%= cate === 'Accessories' ? 'selected' : '' %>>Accessories
-					</option>
-			</select>
-			<div class="mb-3">
-				<label for="name" class="form-label">Search prodact name:</label>
-				<input type="text" name="name" id="name" class="form-control" placeholder="Enter prodact name">
-			</div>
 			<button type="submit" class="btn btn-primary mt-2">Filter</button>
 		  </form>
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="product-grid">
