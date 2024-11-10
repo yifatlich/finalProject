@@ -111,7 +111,7 @@
                         <% managers.forEach(manager => { %>
                             <tr>
                                 <td><%= manager.username %></td>
-                                <td><%= manager.createdAt %></td>
+                                <td><%= (manager.createdAt).toLocaleDateString() %></td>
                             </tr>
                         <% }) %>
                     </tbody>                    
