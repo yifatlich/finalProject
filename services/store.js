@@ -27,23 +27,3 @@ exports.updateStore = async (id, name, address, outlet, accessible) => {
 exports.deleteStore = async (id) => {
     return await Store.findByIdAndDelete(id)
 }
-
-exports.searchStores = async (queryParams) => {
-
-    const { address, outlet, accessible } = queryParams;
-    const query = {};
-
-    if (address) query.address = { $regex: address, $options: 'i' };
-    if (outlet === 'on') query.outlet = true;
-    if (accessible === 'on') query.accessible = true;
-
-
-
-    try {
-        const result = await Store.find(query);
-        return result;
-    } catch (error) {
-        console.error("Service: Error finding stores:", error);
-        throw new Error('Error retrieving stores');
-    }
-}
