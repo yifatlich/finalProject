@@ -32,10 +32,7 @@
 							<form action="/managers/updateForm/<%= manager._id %>" method="GET" style="display:inline;">
 								<button type="submit" class="btn btn-warning btn-sm">Update</button>
 							</form>
-
-							<button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('"
-								<%= manager._id %>')">Delete
-							</button>
+							<button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('<%= manager._id %>')">Delete</button>
 						</td>
 					</tr>
 					<% }) %>
@@ -54,9 +51,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     Are you sure you want to delete this manager?
@@ -72,13 +67,19 @@
         </div>
     </div>
 
-	
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function confirmDelete(managerId) {
             $('#deleteForm').attr('action', `/managers/${managerId}?_method=DELETE`);
             $('#deleteModal').modal('show');
         }
     </script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		const cancelButton = document.querySelector('.btn-secondary');
+		cancelButton.addEventListener('click', function () {
+			$('#deleteModal').modal('hide');
+		});
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
