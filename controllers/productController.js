@@ -21,7 +21,15 @@ exports.showAddProductForm = (req, res) => {
 // Add a new product
 exports.addProduct = async (req, res) => {
     const { name, id, description, price, category, imageUrl, quantity } = req.body;
-
+    const existingProduct = await ProductService.searchProducts({
+        $or: [
+          { id: id }
+        ]
+    });
+    if (existingProduct.length > 0) {
+        const messages = ['Id already exists.'];
+        return res.render('productAdd', { messages });
+    }
     const newProductData = {
         name,
         id,
@@ -31,7 +39,6 @@ exports.addProduct = async (req, res) => {
         imageUrl,
         quantity
     };
-
     try {
         await ProductService.addProduct(newProductData);
         res.redirect('/products');
